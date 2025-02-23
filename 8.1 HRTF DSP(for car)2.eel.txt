@@ -1,0 +1,966 @@
+desc: Виртуальная 8.1 Система с HRTF матрицей v5.0.0
+//tags: car, surround, processing, enhancer, HRTF, matrix, bluetooth, aux
+//author: vladosik1210
+//created: 2025-02-19 22:27:23
+//modified: 2025-02-19 22:27:23
+//version: 5.0.0
+
+// ГРУППА 1: ГРОМКОСТЬ КАНАЛОВ (оптимизировано для стерео входа)
+slider1:-2<-80,0,0.1>Фронт Левый: Гейн (дБ) [Основной фронтальный левый канал]
+slider2:-2<-80,0,0.1>Фронт Правый: Гейн (дБ) [Основной фронтальный правый канал]
+slider3:-2<-80,0,0.1>Центр: Гейн (дБ) [Центральный канал для улучшения диалогов]
+slider4:-2<-80,0,0.1>Тыл Левый: Гейн (дБ) [Тыловой левый для объемного звучания]
+slider5:-2<-80,0,0.1>Тыл Правый: Гейн (дБ) [Тыловой правый для объемного звучания]
+slider6:-2<-80,0,0.1>Тыл Центр: Гейн (дБ) [Тыловой центр для глубины звука]
+slider7:-1.5<-80,0,0.1>Сабвуфер: Гейн (дБ) [Низкочастотный канал]
+slider60:-2<-80,0,0.1>Центр Левый: Гейн (дБ) [Левый центральный для расширения сцены]
+slider61:-2<-80,0,0.1>Центр Правый: Гейн (дБ) [Правый центральный для расширения сцены]
+
+// ГРУППА 2: БАС-БУСТ (оптимизировано для Bluetooth/AUX)
+slider8:1.2<0,3,0.1>Фронт Левый: Бас-буст [Усиление НЧ фронт левый]
+slider9:1.2<0,3,0.1>Фронт Правый: Бас-буст [Усиление НЧ фронт правый]
+slider10:1.0<0,3,0.1>Центр: Бас-буст [Усиление НЧ центр]
+slider11:1.2<0,3,0.1>Тыл Левый: Бас-буст [Усиление НЧ тыл левый]
+slider12:1.2<0,3,0.1>Тыл Правый: Бас-буст [Усиление НЧ тыл правый]
+slider13:1.0<0,3,0.1>Тыл Центр: Бас-буст [Усиление НЧ тыл центр]
+slider14:1.5<0,3,0.1>Сабвуфер: Бас-буст [Усиление НЧ сабвуфер]
+slider62:1.0<0,3,0.1>Центр Левый: Бас-буст [Усиление НЧ центр левый]
+slider63:1.0<0,3,0.1>Центр Правый: Бас-буст [Усиление НЧ центр правый]
+
+// ГРУППА 3: ФИЛЬТРЫ (оптимизировано для чистого звучания)
+slider15:0<0,1,1>Фронт Левый: LPF Вкл/Выкл [Фильтр НЧ фронт левый]
+slider16:0<0,1,1>Фронт Правый: LPF Вкл/Выкл [Фильтр НЧ фронт правый]
+slider17:0<0,1,1>Центр: LPF Вкл/Выкл [Фильтр НЧ центр]
+slider18:0<0,1,1>Тыл Левый: LPF Вкл/Выкл [Фильтр НЧ тыл левый]
+slider19:0<0,1,1>Тыл Правый: LPF Вкл/Выкл [Фильтр НЧ тыл правый]
+slider20:0<0,1,1>Тыл Центр: LPF Вкл/Выкл [Фильтр НЧ тыл центр]
+slider21:1<0,1,1>Сабвуфер: LPF Вкл/Выкл [Фильтр НЧ сабвуфер]
+slider64:0<0,1,1>Центр Левый: LPF Вкл/Выкл [Фильтр НЧ центр левый]
+slider65:0<0,1,1>Центр Правый: LPF Вкл/Выкл [Фильтр НЧ центр правый]
+
+// ГРУППА 4: ЧАСТОТЫ ФИЛЬТРОВ (оптимизировано для авто)
+slider22:120<20,400,1>Фронт Левый: Частота (Гц) [Частота среза ФНЧ]
+slider23:120<20,400,1>Фронт Правый: Частота (Гц) [Частота среза ФНЧ]
+slider24:120<20,400,1>Центр: Частота (Гц) [Частота среза ФНЧ]
+slider25:120<20,400,1>Тыл Левый: Частота (Гц) [Частота среза ФНЧ]
+slider26:120<20,400,1>Тыл Правый: Частота (Гц) [Частота среза ФНЧ]
+slider27:120<20,400,1>Тыл Центр: Частота (Гц) [Частота среза ФНЧ]
+slider28:80<20,400,1>Сабвуфер: Частота (Гц) [Частота среза ФНЧ]
+slider66:120<20,400,1>Центр Левый: Частота (Гц) [Частота среза ФНЧ]
+slider67:120<20,400,1>Центр Правый: Частота (Гц) [Частота среза ФНЧ]
+
+// ГРУППА 5: ФАЗЫ (оптимизировано для лучшей синхронизации)
+slider29:-40<-90,90,1>Фронт Левый: Фаза (°) [Фазовый сдвиг]
+slider30:40<-90,90,1>Фронт Правый: Фаза (°) [Фазовый сдвиг]
+slider31:0<-90,90,1>Центр: Фаза (°) [Фазовый сдвиг]
+slider32:-80<-90,90,1>Тыл Левый: Фаза (°) [Фазовый сдвиг]
+slider33:80<-90,90,1>Тыл Правый: Фаза (°) [Фазовый сдвиг]
+slider34:0<-90,90,1>Тыл Центр: Фаза (°) [Фазовый сдвиг]
+slider35:0<-90,90,1>Сабвуфер: Фаза (°) [Фазовый сдвиг]
+slider68:-60<-90,90,1>Центр Левый: Фаза (°) [Фазовый сдвиг]
+slider69:60<-90,90,1>Центр Правый: Фаза (°) [Фазовый сдвиг]
+
+// ГРУППА 6: ЗАДЕРЖКИ (оптимизировано для Bluetooth/AUX)
+slider36:2<0,100,1>Фронт Левый: Задержка (мс) [Временная задержка]
+slider37:2<0,100,1>Фронт Правый: Задержка (мс) [Временная задержка]
+slider38:1<0,100,1>Центр: Задержка (мс) [Временная задержка]
+slider39:3<0,100,1>Тыл Левый: Задержка (мс) [Временная задержка]
+slider40:3<0,100,1>Тыл Правый: Задержка (мс) [Временная задержка]
+slider41:2<0,100,1>Тыл Центр: Задержка (мс) [Временная задержка]
+slider42:0<0,100,1>Сабвуфер: Задержка (мс) [Временная задержка]
+slider70:2<0,100,1>Центр Левый: Задержка (мс) [Временная задержка]
+slider71:2<0,100,1>Центр Правый: Задержка (мс) [Временная задержка]
+
+// ГРУППА 7: ГЛОБАЛЬНЫЕ НАСТРОЙКИ (оптимизировано для качества звука)
+slider43:1.4<1,5,0.1>Компрессия (1=выкл) [Степень компрессии динамики]
+slider44:0<-100,100,1>Баланс (%) [Баланс между левым и правым]
+slider45:0<-100,100,1>Фейдер (%) [Баланс между фронтом и тылом]
+slider46:7<0,20,0.1>Мягкость (0=выкл, 20=макс) [Сглаживание резких частот]
+slider47:65<0,100,1>Пространственность (%) [Ширина стерео базы]
+
+// ГРУППА 8: РАЗМЕРЫ БУФЕРОВ (оптимизировано для стабильности)
+slider48:50<10,200,1>Фронт Левый: Размер буфера (мс) [Размер буфера обработки]
+slider49:50<10,200,1>Фронт Правый: Размер буфера (мс) [Размер буфера обработки]
+slider50:50<10,200,1>Центр: Размер буфера (мс) [Размер буфера обработки]
+slider51:50<10,200,1>Тыл Левый: Размер буфера (мс) [Размер буфера обработки]
+slider52:50<10,200,1>Тыл Правый: Размер буфера (мс) [Размер буфера обработки]
+slider53:50<10,200,1>Тыл Центр: Размер буфера (мс) [Размер буфера обработки]
+slider54:50<10,200,1>Сабвуфер: Размер буфера (мс) [Размер буфера обработки]
+slider72:50<10,200,1>Центр Левый: Размер буфера (мс) [Размер буфера обработки]
+slider73:50<10,200,1>Центр Правый: Размер буфера (мс) [Размер буфера обработки]
+
+// ГРУППА 9: РЕЖИМЫ РАБОТЫ (оптимизировано для Bluetooth/AUX)
+slider55:0<0,1,1>Компенсация для мобильных динамиков [Оптимизация для телефона]
+slider56:2<0,2,1>0=Наушники, 1=Стерео, 2=Авто [Режим работы системы]
+slider57:75<0,100,1>Сила HRTF эффекта (%) [Интенсивность пространственного звука]
+slider58:1<0,1,1>Фазы вкл/выкл [Включение фазовых сдвигов]
+slider59:0<0,1,1>Режим фаз (0=HRTF, 1=Ручной) [Метод расчета фаз]
+slider74:1<0,1,1>Матричная обработка вкл/выкл [Включение матричной обработки]
+slider75:100<0,100,1>Room Size (размер помещения)
+@init
+// Инициализация констант
+sr = srate;
+pi = $pi;
+
+// Оптимизация для MediaTek 7200 Ultra
+update_rate = srate/4;
+buffer_size = min(max(64, floor(srate/1000 * 50)), 256);
+max_processing_load = 0.8;
+
+// Переменные для мультибенд компрессора
+mb_thresh1 = 0.3; 
+mb_thresh2 = 0.4;
+mb_thresh3 = 0.5;
+mb_thresh4 = 0.6;
+
+mb_ratio1 = 1.5;
+mb_ratio2 = 1.8;
+mb_ratio3 = 2.0;
+mb_ratio4 = 2.2;
+
+mb_freq1 = 100;
+mb_freq2 = 500;
+mb_freq3 = 2000;
+mb_freq4 = 8000;
+
+mb_prev1.x1=mb_prev1.x2=mb_prev1.y1=mb_prev1.y2=0;
+mb_prev2.x1=mb_prev2.x2=mb_prev2.y1=mb_prev2.y2=0;
+mb_prev3.x1=mb_prev3.x2=mb_prev3.y1=mb_prev3.y2=0;
+mb_prev4.x1=mb_prev4.x2=mb_prev4.y1=mb_prev4.y2=0;
+
+mb_attack = 0.003;
+mb_release = 0.15;
+mb_gain1 = mb_gain2 = mb_gain3 = mb_gain4 = 1.0;
+mb_level1 = mb_level2 = mb_level3 = mb_level4 = 0;
+
+// Переменные для анализа музыки
+music_type = 0;
+energy_low = 0;
+energy_mid = 0;
+energy_high = 0;
+prev_music_type = 0;
+music_smooth = 0.95;
+
+// Инициализация переменных для фазы с улучшенной точностью
+phase_mode_prev = 0;
+phase_enabled_prev = 0;
+bypass_enabled = 0;
+stereo_width = 1.0;
+
+prev_gain = 1.0;
+level_smooth = 0;
+
+// Переменные для адаптивного сглаживания и Bluetooth компенсации
+prev_outL = prev_outR = 0;
+smooth_coef = 0.94;
+signal_level_prev = 0;
+dynamics_tracking = 0;
+
+// Адаптивные переменные с оптимизацией для стерео
+hrtf_base = 0.3;
+phase_correction_factor = 1.0;
+spatial_enhancement_factor = 1.0;
+matrix_enabled = 1;
+
+// Инициализация буферов для всех каналов
+function init_buffer(ms) local(size) (
+    size = ceil(sr * ms / 1000);
+    max(size, 64);
+);
+
+// Буферы для каждого канала с оптимизированным размером
+bufsize_fl = init_buffer(slider48);
+bufsize_fr = init_buffer(slider49);
+bufsize_c = init_buffer(slider50);
+bufsize_rl = init_buffer(slider51);
+bufsize_rr = init_buffer(slider52);
+bufsize_rc = init_buffer(slider53);
+bufsize_sw = init_buffer(slider54);
+bufsize_cl = init_buffer(slider72);
+bufsize_cr = init_buffer(slider73);
+
+// Распределение памяти для буферов
+buffer_fl = 0;
+buffer_fr = bufsize_fl;
+buffer_c = buffer_fr + bufsize_fr;
+buffer_rl = buffer_c + bufsize_c;
+buffer_rr = buffer_rl + bufsize_rl;
+buffer_rc = buffer_rr + bufsize_rr;
+buffer_sw = buffer_rc + bufsize_rc;
+buffer_cl = buffer_sw + bufsize_sw;
+buffer_cr = buffer_cl + bufsize_cl;
+buffer_temp = buffer_cr + bufsize_cr;
+
+// Инициализация позиций записи с нулевым смещением
+write_pos_fl = write_pos_fr = write_pos_c = write_pos_rl = write_pos_rr = write_pos_rc = write_pos_sw = write_pos_cl = write_pos_cr = 0;
+
+// Инициализация фильтров для всех каналов
+lp_prev_fl.x1=lp_prev_fl.x2=lp_prev_fl.y1=lp_prev_fl.y2=0;
+lp_prev_fr.x1=lp_prev_fr.x2=lp_prev_fr.y1=lp_prev_fr.y2=0;
+lp_prev_c.x1=lp_prev_c.x2=lp_prev_c.y1=lp_prev_c.y2=0;
+lp_prev_rl.x1=lp_prev_rl.x2=lp_prev_rl.y1=lp_prev_rl.y2=0;
+lp_prev_rr.x1=lp_prev_rr.x2=lp_prev_rr.y1=lp_prev_rr.y2=0;
+lp_prev_rc.x1=lp_prev_rc.x2=lp_prev_rc.y1=lp_prev_rc.y2=0;
+lp_prev_sw.x1=lp_prev_sw.x2=lp_prev_sw.y1=lp_prev_sw.y2=0;
+lp_prev_cl.x1=lp_prev_cl.x2=lp_prev_cl.y1=lp_prev_cl.y2=0;
+lp_prev_cr.x1=lp_prev_cr.x2=lp_prev_cr.y1=lp_prev_cr.y2=0;
+lp_prev_adaptive.x1=lp_prev_adaptive.x2=lp_prev_adaptive.y1=lp_prev_adaptive.y2=0;
+
+// Инициализация слайдеров с оптимизированными значениями для автомобильной системы
+slider1=0.00; // Фронт Левый: Гейн
+slider2=0.00; // Фронт Правый: Гейн
+slider3=-2.80; // Центр: Гейн
+slider4=0.00; // Тыл Левый: Гейн
+slider5=0.00; // Тыл Правый: Гейн
+slider6=-2.00; // Тыл Центр: Гейн
+slider7=0.00; // Сабвуфер: Гейн
+slider8=0.10;  // Фронт Левый: Бас-буст
+slider9=0.10;  // Фронт Правый: Бас-буст
+slider10=0.00; // Центр: Бас-буст
+slider11=0.00; // Тыл Левый: Бас-буст
+slider12=0.00; // Тыл Правый: Бас-буст
+slider13=0.00; // Тыл Центр: Бас-буст
+slider14=0.41; // Сабвуфер: Бас-буст (оптимизировано для Bluetooth/AUX)
+slider15=0;   // Фронт Левый: LPF Вкл/Выкл
+slider16=0;   // Фронт Правый: LPF Вкл/Выкл
+slider17=0;   // Центр: LPF Вкл/Выкл
+slider18=0;   // Тыл Левый: LPF Вкл/Выкл
+slider19=0;   // Тыл Правый: LPF Вкл/Выкл
+slider20=0;   // Тыл Центр: LPF Вкл/Выкл
+slider21=1;   // Сабвуфер: LPF Вкл/Выкл
+slider22=120; // Фронт Левый: Частота
+slider23=120; // Фронт Правый: Частота
+slider24=120; // Центр: Частота
+slider25=120; // Тыл Левый: Частота
+slider26=120; // Тыл Правый: Частота
+slider27=120; // Тыл Центр: Частота
+slider28=80;  // Сабвуфер: Частота
+slider29=-40; // Фронт Левый: Фаза
+slider30=40;  // Фронт Правый: Фаза
+slider31=0;   // Центр: Фаза
+slider32=-80; // Тыл Левый: Фаза
+slider33=80;  // Тыл Правый: Фаза
+slider34=0;   // Тыл Центр: Фаза
+slider35=0;   // Сабвуфер: Фаза
+slider36=3;   // Фронт Левый: Задержка
+slider37=3;   // Фронт Правый: Задержка
+slider38=2;   // Центр: Задержка
+slider39=2;   // Тыл Левый: Задержка
+slider40=2;   // Тыл Правый: Задержка
+slider41=1;   // Тыл Центр: Задержка
+slider42=1;   // Сабвуфер: Задержка
+slider43=1.92; // Компрессия (оптимизировано для Bluetooth/AUX)
+slider44=0;   // Баланс
+slider45=0;   // Фейдер
+slider46=20.00; // Мягкость (оптимизировано для Bluetooth)
+slider47=100;  // Пространственность
+slider48=200; // Фронт Левый: Размер буфера
+slider49=200; // Фронт Правый: Размер буфера
+slider50=200; // Центр: Размер буфера
+slider51=200; // Тыл Левый: Размер буфера
+slider52=200; // Тыл Правый: Размер буфера
+slider53=200; // Тыл Центр: Размер буфера
+slider54=200; // Сабвуфер: Размер буфера
+slider55=0;   // Компенсация для мобильных динамиков
+slider56=2;   // Режим работы (2=Авто)
+slider57=100; // Сила HRTF эффекта
+slider58=1;   // Фазы вкл/выкл
+slider59=0;   // Режим фаз
+slider60=0.00; // Центр Левый: Гейн
+slider61=0.00; // Центр Правый: Гейн
+slider62=0.00;  // Центр Левый: Бас-буст
+slider63=0.00;  // Центр Правый: Бас-буст
+slider64=0;    // Центр Левый: LPF Вкл/Выкл
+slider65=0;    // Центр Правый: LPF Вкл/Выкл
+slider66=120;  // Центр Левый: Частота
+slider67=120;  // Центр Правый: Частота
+slider68=-60;  // Центр Левый: Фаза
+slider69=60;   // Центр Правый: Фаза
+slider70=1;    // Центр Левый: Задержка
+slider71=1;    // Центр Правый: Задержка
+slider72=200;  // Центр Левый: Размер буфера
+slider73=200;  // Центр Правый: Размер буфера
+slider74=1;    // Матричная обработка вкл/выкл
+slider75=0;    // Размер помещения (по умолчанию 100%)
+
+// Базовые функции обработки с оптимизацией для Bluetooth/AUX входа
+function db2gain(db) (
+    pow(10, db/20);
+);
+
+position_smooth_front = position_front = 0;
+position_smooth_rear = position_rear = 0;
+fade_memory = 0;
+fade_coef_front = 1;
+fade_coef_rear = 1;
+prev_fade_coef_front = 1;
+prev_fade_coef_rear = 1;
+fade_smoothing = 0.95;
+
+// В @init секции добавляем/проверяем наличие переменных:
+room_memory_l = 0;
+room_memory_r = 0;
+room_prev_l = 0;
+room_prev_r = 0;
+room_reflection_l = 0;
+room_reflection_r = 0;
+
+function process_room_size(input_l, input_r) local(room, refl_l, refl_r) (
+    room = slider75/100 * 0.8; // Уменьшено влияние
+    
+    room > 0 ? (
+        refl_l = input_l;
+        refl_r = input_r;
+        
+        room_memory_l = room_memory_l * (0.75 + room * 0.15) + input_l * 0.25;
+        room_memory_r = room_memory_r * (0.75 + room * 0.15) + input_r * 0.25;
+        
+        room_reflection_l = room_memory_l * room * 0.35;
+        room_reflection_r = room_memory_r * room * 0.35;
+        
+        refl_l += room_reflection_r * room * 0.25;
+        refl_r += room_reflection_l * room * 0.25;
+        
+        output_left = input_l * (1 - room * 0.3) + refl_l * room * 0.3;
+        output_right = input_r * (1 - room * 0.3) + refl_r * room * 0.3;
+    ) : (
+        output_left = input_l;
+        output_right = input_r;
+    );
+);
+
+hrtf_left = hrtf_right = 0;
+hrtf_prev_left = hrtf_prev_right = 0;
+hrtf_smooth = 0.95;
+
+// Добавить функцию обратно
+function update_hrtf_base(left, right) (
+    // Обновление HRTF базы
+    hrtf_left = left * hrtf_smooth + hrtf_prev_left * (1 - hrtf_smooth);
+    hrtf_right = right * hrtf_smooth + hrtf_prev_right * (1 - hrtf_smooth);
+    
+    // Сохранение предыдущих значений
+    hrtf_prev_left = hrtf_left;
+    hrtf_prev_right = hrtf_right;
+);
+
+// Улучшенный низкочастотный фильтр с защитой от искажений
+function improved_lpf(input, freq, prev) local(omega, sn, cs, alpha, a0, a1, a2, b0, b1, b2, y) (
+    // Улучшенная защита от экстремальных частот
+    freq = min(max(freq, 20), srate/4); // Ограничение до 1/4 частоты дискретизации
+    
+    // Оптимизированный расчет параметров
+    omega = 2.0 * $pi * freq/srate;
+    sn = sin(omega);
+    cs = cos(omega);
+    alpha = sn / (2.0 * 0.8); // Увеличен Q-фактор для более крутого спада
+    
+    // Улучшенные коэффициенты фильтра
+    a0 = 1.0 + alpha;
+    a1 = -2.0 * cs;
+    a2 = 1.0 - alpha;
+    b0 = (1.0 - cs) / 2.0;
+    b1 = 1.0 - cs;
+    b2 = (1.0 - cs) / 2.0;
+    
+    // Более плавная фильтрация
+    y = (b0/a0) * input + 
+        (b1/a0) * prev.x1 + 
+        (b2/a0) * prev.x2 - 
+        (a1/a0) * prev.y1 - 
+        (a2/a0) * prev.y2;
+    
+    // Защита от перегрузки
+    y = y * 0.95; // Небольшое ослабление для предотвращения перегрузки
+    
+    // Обновление истории
+    prev.x2 = prev.x1;
+    prev.x1 = input;
+    prev.y2 = prev.y1;
+    prev.y1 = y;
+    
+    y
+);
+
+// Оптимизированная функция задержки для лучшей синхронизации
+function delay_signal_enhanced(input, delay_ms, buffer_offset, bufsize, pos) local(delay_samples, read_pos) (
+    delay_samples = min(floor(delay_ms * srate / 1000), bufsize-1);
+    read_pos = (pos - delay_samples + bufsize) % bufsize;
+    mem[buffer_offset + pos] = input;
+    mem[buffer_offset + read_pos];
+);
+
+// Расширенная фазовая коррекция
+function advanced_phase_correction(input, phase_deg, channel_type, music_type) local(phase_factor) (
+    phase_factor = music_type == 0 ? 0.9 : // Басовая музыка
+                   music_type == 1 ? 1.1 : // Высокочастотная музыка
+                   1.0; // Сбалансированная музыка
+    
+    phase_deg *= phase_factor;
+    
+    channel_type == 0 ? phase_deg *= 1.1 : // Фронт
+    channel_type == 1 ? phase_deg *= 0.9 : // Тыл
+                       phase_deg *= 1.0;    // Центр
+    
+    input * cos(phase_deg * $pi/180)
+);
+
+// Улучшенная функция фазового сдвига с учетом типа канала
+function phase_shift_enhanced(input, phase_deg, is_virtual, channel_type) local(phase_factor, output, actual_phase, channel_mod) (
+    slider58 == 0 ? input : (
+        slider74 ? (
+            slider59 == 0 ? (
+                phase_factor = slider56 == 0 ? 0.7 :
+                              slider56 == 1 ? 0.8 : 
+                              0.9;
+                
+                channel_mod = channel_type == 0 ? 1.0 :  // фронт
+                            channel_type == 1 ? 0.8 :  // тыл
+                            0.9;                       // центр
+                
+                actual_phase = is_virtual ? (
+                    phase_deg < 0 ? phase_deg * phase_factor * channel_mod :
+                    phase_deg > 0 ? phase_deg * phase_factor * channel_mod :
+                    0
+                ) : phase_deg * channel_mod;
+                
+                output = input * cos(actual_phase * $pi/180)
+            ) : (
+                output = input * cos(phase_deg * $pi/180)
+            )
+        ) : input;
+        output
+    )
+);
+
+// Улучшенная пространственная обработка с учетом акустики автомобиля
+function spatial_enhance_advanced(input, amount, is_rear, is_center) local(spatial, output, early_refl) (
+    spatial = slider47/100;
+    amount = amount * spatial * 0.4; // Уменьшено с 0.45
+    output = input;
+    
+    slider74 ? (
+        is_rear ? (
+            output *= (1 + amount * 0.2); // Уменьшено с 0.25
+            early_refl = delay_signal_enhanced(output, 
+                10 + amount * 4, // Уменьшено с 15 и 5
+                buffer_temp, 
+                bufsize_sw, 
+                write_pos_sw
+            ) * 0.15; // Уменьшено с 0.18
+            
+            output += early_refl;
+            amount > 0 ? output += sin(output * $pi * 0.2) * amount * 0.1;
+        ) : is_center ? (
+            output *= (1 - amount * 0.01); // Уменьшено с 0.02
+        ) : (
+            output *= (1 + amount * 0.12);
+            output += sin(output * $pi * 0.4) * amount * 0.06;
+        );
+    );
+    
+    abs(output) > 0.95 ? sign(output) * 0.95 : output
+);
+
+// Улучшенная функция баса с учетом Bluetooth/AUX входа
+function bass_boost_enhanced(input, amount, channel_type) local(freq_dependent_boost, input_level, dynamic_control, harmonic_enhance, warmth) (
+    slider74 ? (
+        // Улучшенное определение уровня входного сигнала
+        input_level = abs(input);
+        input_level = input_level * 0.6 + input_level * input_level * 0.4;
+        
+        // Динамический контроль с адаптивным порогом
+        dynamic_control = 1.0 - (input_level * input_level * (0.7 + channel_type * 0.1));
+        
+        // Многополосное усиление баса
+        freq_dependent_boost = amount * (
+            channel_type == 0 ? ( // Фронт
+                1.8 - input_level * 0.35 + 
+                (1 - input_level) * 0.25
+            ) : 
+            channel_type == 1 ? ( // Тыл
+                1.6 - input_level * 0.3 + 
+                (1 - input_level) * 0.2
+            ) : ( // Центр/сабвуфер
+                1.4 - input_level * 0.25 + 
+                (1 - input_level) * 0.15
+            )
+        );
+        
+        // Улучшенное гармоническое обогащение
+        harmonic_enhance = input * input * input * 0.2;
+        warmth = input * input * 0.15;
+        
+        // Комбинирование с улучшенной защитой
+        output = input * (1 + freq_dependent_boost * dynamic_control) * 0.92;
+        output = output + (harmonic_enhance + warmth) * (1 - input_level) * amount * 0.35;
+        
+        // Адаптивное ограничение
+        abs(output) > 0.9 ? 
+            sign(output) * (0.9 + (abs(output) - 0.9) * 0.15) : 
+            output
+        
+    ) : input * (1 + amount * 0.45)
+);
+
+// Оптимизированная система автокалибровки задержек
+function calculate_delay_calibration() local(position_calibration, balance_factor, room_factor, mode_factor) (
+    // Размер помещения с защитой от экстремальных значений
+    room_factor = min(max(slider75/100, 0), 1);
+    
+    // Позиционная калибровка с учетом фейдера
+    position_calibration = 1.0 + (slider45 * 0.01) * sqrt(abs(slider44 * 0.01));
+    
+    // Баланс с улучшенной компенсацией
+    balance_factor = 1.0 + abs(slider44) * 0.005;
+    
+    // Учитываем режим работы системы (наушники/стерео/авто)
+    mode_factor = slider56 == 0 ? 1.1 :    // Наушники
+                 slider56 == 1 ? 1.15 :   // Стерео
+                 1.2;                     // Авто (по умолчанию)
+    
+    // Финальный расчет с учетом всех факторов
+    position_calibration * balance_factor * 
+    (mode_factor - (room_factor * 0.2 * (slider74 ? 1 : 0.5)))  // Учитываем матричную обработку
+);
+
+// Адаптивное сглаживание для Bluetooth/AUX
+function calculate_smooth_coef(outL, outR, prev_outL, prev_outR) local(delta) (
+    delta = (abs(outL - prev_outL) + abs(outR - prev_outR)) * 0.5;
+    max(0.90, min(0.98, 0.94 + delta * 0.2));
+);
+
+// Улучшенный мягкий клиппинг с защитой от искажений
+function soft_clip_enhanced(x) local(abs_x, curve) (
+    abs_x = abs(x);
+    curve = 0.2; // Настройка кривой клиппинга
+    
+    abs_x > 0.7 ? (
+        sign(x) * (0.7 + (abs_x - 0.7) * (0.3 + (1 - abs_x) * curve) * 
+        (1 - (abs_x - 0.7) * 0.3))  // Более плавное ограничение
+    ) : x
+);
+
+// Исправленная функция мультибенд компрессора:
+function multiband_compressor(input) local(band1, band2, band3, band4, output, level1, level2, level3, level4) (
+    // Разделение на полосы
+    band1 = improved_lpf(input, mb_freq1, mb_prev1);
+    band2 = improved_lpf(input, mb_freq2, mb_prev2) - band1;
+    band3 = improved_lpf(input, mb_freq3, mb_prev3) - band2 - band1;
+    band4 = input - band3 - band2 - band1;
+    
+    // Компрессия полосы 1
+    level1 = abs(band1);
+    mb_level1 = mb_level1 * (1 - mb_attack) + level1 * mb_attack;
+    mb_level1 > mb_thresh1 ? (
+        mb_gain1 = mb_gain1 * (1 - mb_release) + (1 + (mb_thresh1 - mb_level1) * (mb_ratio1 - 1)) * mb_release;
+        band1 *= mb_gain1 * 0.95;
+    );
+    
+    // Компрессия полосы 2
+    level2 = abs(band2);
+    mb_level2 = mb_level2 * (1 - mb_attack) + level2 * mb_attack;
+    mb_level2 > mb_thresh2 ? (
+        mb_gain2 = mb_gain2 * (1 - mb_release) + (1 + (mb_thresh2 - mb_level2) * (mb_ratio2 - 1)) * mb_release;
+        band2 *= mb_gain2 * 0.95;
+    );
+    
+    // Компрессия полосы 3
+    level3 = abs(band3);
+    mb_level3 = mb_level3 * (1 - mb_attack) + level3 * mb_attack;
+    mb_level3 > mb_thresh3 ? (
+        mb_gain3 = mb_gain3 * (1 - mb_release) + (1 + (mb_thresh3 - mb_level3) * (mb_ratio3 - 1)) * mb_release;
+        band3 *= mb_gain3 * 0.95;
+    );
+    
+    // Компрессия полосы 4
+    level4 = abs(band4);
+    mb_level4 = mb_level4 * (1 - mb_attack) + level4 * mb_attack;
+    mb_level4 > mb_thresh4 ? (
+        mb_gain4 = mb_gain4 * (1 - mb_release) + (1 + (mb_thresh4 - mb_level4) * (mb_ratio4 - 1)) * mb_release;
+        band4 *= mb_gain4 * 0.95;
+    );
+    
+    // Суммирование с защитой от перегрузки
+    output = (band1 + band2 + band3 + band4) * 0.95;
+    
+    // Финальное ограничение
+    abs(output) > 0.9 ? sign(output) * 0.9 : output
+);
+
+// Оптимизированный динамический процессор
+function dynamic_processor(input, threshold, ratio) local(level, gain, attack, release) (
+    level = abs(input);
+    attack = 0.004;  // Увеличено с 0.003
+    release = 0.17;  // Увеличено с 0.15
+    
+    level_smooth = level_smooth * (1 - attack) + level * attack;
+    
+    level_smooth > threshold ? (
+        gain = 1 + (threshold - level_smooth) * (ratio - 1);
+        gain = prev_gain * (1 - release) + gain * release;
+        prev_gain = gain;
+        input * gain * 0.92  // Уменьшено с 0.95
+    ) : input
+);
+// Инициализация выходных переменных
+output_left = output_right = 0;
+
+mid = side = side_level = 0;
+
+@sample
+// Получение входного сигнала с оптимизированной нормализацией для Bluetooth/AUX
+inL = spl0 * 0.92; // Увеличено для лучшей динамики
+inR = spl1 * 0.92;
+
+// Стерео обработка
+mid = (outL + outR) * 0.5;
+side = (outL - outR) * 0.5;
+    
+// Улучшение стерео
+side_level = abs(side);
+side *= (1 + side_level * 0.3);  // Увеличение ширины
+    
+// Сборка обратно в стерео
+outL = mid + side;
+outR = mid - side;
+
+// Анализ типа музыки
+energy_low = abs(improved_lpf(inL + inR, 100, lp_prev_adaptive));
+energy_mid = abs(improved_lpf(inL + inR, 1000, lp_prev_adaptive)) - energy_low;
+energy_high = abs(inL + inR) - energy_low - energy_mid;
+
+// Определение типа с плавным переходом
+current_type = energy_low > 0.5 ? 0 : 
+              energy_high > 0.4 ? 1 : 2;
+
+music_type = music_type * music_smooth + current_type * (1 - music_smooth);
+
+// Обновление адаптивных параметров HRTF
+update_hrtf_base(inL, inR);
+
+// Получение параметров калибровки для автомобиля
+delay_calibration = calculate_delay_calibration();
+
+// Проверка включения матричной обработки
+matrix_enabled = slider74;
+
+// Если матрица выключена, применяем улучшенную стерео обработку
+!matrix_enabled ? (
+    outL = inL * db2gain(slider1);
+    outR = inR * db2gain(slider2);
+    
+    // Применяем улучшенные эффекты для стерео
+    outL = bass_boost_enhanced(outL, slider8 * 0.5, 0);
+    outR = bass_boost_enhanced(outR, slider9 * 0.5, 0);
+    
+    // Улучшенный расчет баланса для автомобиля
+    bal_left = cos((100 + slider44) * $pi/400) * (1 + abs(slider44) * 0.002);
+    bal_right = cos((100 - slider44) * $pi/400) * (1 + abs(slider44) * 0.002);
+    outL *= bal_left;
+    outR *= bal_right;
+) : (
+    // Иначе выполняем полную матричную обработку 8.1 с улучшениями
+    
+    // Настройка HRTF с адаптивной защитой от искажений
+    hrtf_strength = max(slider57/100, 0.1);
+    output_mode = slider56;
+    hrtf_multiplier = output_mode == 0 ? 1.0 : 
+                     output_mode == 1 ? 0.7 : 0.85;
+    hrtf_multiplier = hrtf_base + (hrtf_multiplier - hrtf_base) * hrtf_strength;
+
+    // Улучшенный расчет баланса для автомобиля
+    bal_left = cos((100 + slider44) * $pi/400) * (1 + abs(slider44) * 0.002);
+    bal_right = cos((100 - slider44) * $pi/400) * (1 + abs(slider44) * 0.002);
+
+    // Улучшенный расчет фейдера с учетом физического расположения динамиков
+fade_value = slider45/100;
+
+
+    // Расчет пространственной матрицы с улучшенной адаптивностью
+    space = slider47/100;
+    space_matrix_l = 1 + space * (0.15 + 0.05 * (1 - abs(bal_left)));
+    space_matrix_r = 1 + space * (0.15 + 0.05 * (1 - abs(bal_right)));
+// Применение улучшенной мягкости для Bluetooth/AUX
+soft = slider46/20;
+outL = outL * (1-soft) + tanh(outL * (0.8 + soft * 0.1)) * soft;
+outR = outR * (1-soft) + tanh(outR * (0.8 + soft * 0.1)) * soft;
+
+// Расчет коэффициентов фейдера
+fade_coef_front = fade_value >= 0 ? 
+    1.0 : 
+    exp(-3 * abs(fade_value));
+
+fade_coef_rear = fade_value <= 0 ? 
+    1.0 : 
+    exp(-3 * fade_value);
+
+// Сглаживание коэффициентов
+fade_coef_front = prev_fade_coef_front * fade_smoothing + fade_coef_front * (1 - fade_smoothing);
+fade_coef_rear = prev_fade_coef_rear * fade_smoothing + fade_coef_rear * (1 - fade_smoothing);
+
+// Сохранение значений для следующей итерации
+prev_fade_coef_front = fade_coef_front;
+prev_fade_coef_rear = fade_coef_rear;
+
+// Улучшенное позиционирование
+slider56 == 0 ? ( // Наушники
+    position_front = fade_value >= 0 ? 
+        1.0 : 
+        pow(0.001, abs(fade_value)) * 0.95;
+    position_rear = fade_value <= 0 ? 
+        1.0 : 
+        pow(0.001, fade_value) * 0.95;
+) : slider56 == 1 ? ( // Стерео
+    position_front = fade_value >= 0 ? 
+        1.0 : 
+        pow(0.0015, abs(fade_value)) * 0.92;
+    position_rear = fade_value <= 0 ? 
+        1.0 : 
+        pow(0.0015, fade_value) * 0.92;
+) : ( // Авто
+    position_front = fade_value >= 0 ? 
+        1.0 : 
+        pow(0.0008, abs(fade_value)) * 0.90;
+    position_rear = fade_value <= 0 ? 
+        1.0 : 
+        pow(0.0008, fade_value) * 0.90;
+);
+
+// Оптимизированное затухание для центральных каналов
+center_fade = min(fade_front, fade_rear) * 0.7 + 0.3;
+
+// Оптимизированное затухание для сабвуфера
+sub_fade = 1.0 - (pow(abs(fade_value), 1.5) * 0.15);
+
+// Определение типа музыки с плавным переходом
+music_type = music_type * music_smooth + current_type * (1 - music_smooth);
+
+// Дополнительные коэффициенты
+fade_compensation = 1.0 - (abs(fade_value) * 0.2);
+front_emphasis = fade_value >= 0 ? 1.0 + fade_value * 0.15 : 1.0;
+rear_emphasis = fade_value <= 0 ? 1.0 + abs(fade_value) * 0.15 : 1.0;
+
+// Оптимизированная HRTF матрица для автомобиля
+space = slider47/100;
+stereo_separation = slider56 == 0 ? 0.95 : // Наушники
+                    slider56 == 1 ? 0.85 : // Стерео
+                    0.75;                   // Авто
+
+// Плавное сглаживание позиционирования
+position_smooth_front = position_smooth_front * 0.95 + position_front * 0.05;
+position_smooth_rear = position_smooth_rear * 0.95 + position_rear * 0.05;
+fade_memory = fade_memory * 0.9 + fade_value * 0.1;
+
+// Применяем сглаженные значения
+position_front = position_smooth_front;
+position_rear = position_smooth_rear;
+
+// Фронтальные каналы
+hrtf_fl_l = stereo_separation * bal_left * fade_coef_front * hrtf_multiplier * (1 + space * 0.03);   
+hrtf_fl_r = (1 - stereo_separation) * bal_right * fade_coef_front * hrtf_multiplier;   
+hrtf_fr_l = (1 - stereo_separation) * bal_left * fade_coef_front * hrtf_multiplier;    
+hrtf_fr_r = stereo_separation * bal_right * fade_coef_front * hrtf_multiplier * (1 + space * 0.03);   
+
+// Тыловые каналы
+hrtf_rl_l = (stereo_separation * 0.8) * bal_left * fade_coef_rear * hrtf_multiplier * (1 + space * 0.04);   
+hrtf_rl_r = ((1 - stereo_separation) * 0.8) * bal_right * fade_coef_rear * hrtf_multiplier;   
+hrtf_rr_l = ((1 - stereo_separation) * 0.8) * bal_left * fade_coef_rear * hrtf_multiplier;    
+hrtf_rr_r = (stereo_separation * 0.8) * bal_right * fade_coef_rear * hrtf_multiplier * (1 + space * 0.04);   
+
+// Центральные каналы (используем среднее между передним и задним затуханием)
+center_fade = (fade_coef_front + fade_coef_rear) * 0.5;
+hrtf_c_l = 0.5 * bal_left * center_fade * hrtf_multiplier;     
+hrtf_c_r = 0.5 * bal_right * center_fade * hrtf_multiplier;    
+
+// Боковые центральные
+hrtf_cl_l = (0.7 * stereo_separation) * bal_left * center_fade * hrtf_multiplier;
+hrtf_cl_r = (0.3 * (1 - stereo_separation)) * bal_right * center_fade * hrtf_multiplier;
+hrtf_cr_l = (0.3 * (1 - stereo_separation)) * bal_left * center_fade * hrtf_multiplier;
+hrtf_cr_r = (0.7 * stereo_separation) * bal_right * center_fade * hrtf_multiplier;
+
+// Тыловой центр
+hrtf_rc_l = 0.4 * bal_left * fade_coef_rear * hrtf_multiplier;   
+hrtf_rc_r = 0.4 * bal_right * fade_coef_rear * hrtf_multiplier;   
+
+// Сабвуфер (используем общее затухание)
+sub_fade = (fade_coef_front + fade_coef_rear) * 0.5;
+hrtf_sw_l = 0.5 * bal_left * sub_fade * hrtf_multiplier * (1 - space * 0.05);   
+hrtf_sw_r = 0.5 * bal_right * sub_fade * hrtf_multiplier * (1 - space * 0.05);
+
+    // Обработка каналов
+    // Фронт левый
+    fl = inL;
+    fl *= db2gain(slider1);
+    fl = slider15 ? improved_lpf(fl, slider22, lp_prev_fl) : fl;
+    fl = phase_shift_enhanced(fl, slider29, 1, 0);
+    fl = delay_signal_enhanced(fl, slider36 * delay_calibration * position_front, buffer_fl, bufsize_fl, write_pos_fl);
+    write_pos_fl = (write_pos_fl + 1) % bufsize_fl;
+    fl = bass_boost_enhanced(fl, slider8, 0);
+    fl = spatial_enhance_advanced(fl, 1.0, 0, 0);
+    fl = soft_clip_enhanced(fl);
+
+    // Фронт правый
+    fr = inR;
+    fr *= db2gain(slider2);
+    fr = slider16 ? improved_lpf(fr, slider23, lp_prev_fr) : fr;
+    fr = phase_shift_enhanced(fr, slider30, 1, 0);
+    fr = delay_signal_enhanced(fr, slider37 * delay_calibration * position_front, buffer_fr, bufsize_fr, write_pos_fr);
+    write_pos_fr = (write_pos_fr + 1) % bufsize_fr;
+    fr = bass_boost_enhanced(fr, slider9, 0);
+    fr = spatial_enhance_advanced(fr, 1.0, 0, 0);
+    fr = soft_clip_enhanced(fr);
+
+    // Центр
+    c = (inL + inR) * 0.5;
+    c *= db2gain(slider3);
+    c = slider17 ? improved_lpf(c, slider24, lp_prev_c) : c;
+    c = phase_shift_enhanced(c, slider31, 1, 2);
+    c = delay_signal_enhanced(c, slider38 * delay_calibration * min(position_front, position_rear), buffer_c, bufsize_c, write_pos_c);
+    write_pos_c = (write_pos_c + 1) % bufsize_c;
+    c = bass_boost_enhanced(c, slider10, 2);
+    c = spatial_enhance_advanced(c, 0.5, 0, 1);
+    c = soft_clip_enhanced(c);
+
+    // Центр левый
+    cl = inL;
+    cl *= db2gain(slider60);
+    cl = slider64 ? improved_lpf(cl, slider66, lp_prev_cl) : cl;
+    cl = phase_shift_enhanced(cl, slider68, 1, 2);
+    cl = delay_signal_enhanced(cl, slider70 * delay_calibration * min(position_front, position_rear), buffer_cl, bufsize_cl, write_pos_cl);
+    write_pos_cl = (write_pos_cl + 1) % bufsize_cl;
+    cl = bass_boost_enhanced(cl, slider62, 2);
+    cl = spatial_enhance_advanced(cl, 0.6, 0, 1);
+    cl = soft_clip_enhanced(cl);
+
+    // Центр правый
+    cr = inR;
+    cr *= db2gain(slider61);
+    cr = slider65 ? improved_lpf(cr, slider67, lp_prev_cr) : cr;
+    cr = phase_shift_enhanced(cr, slider69, 1, 2);
+    cr = delay_signal_enhanced(cr, slider71 * delay_calibration * min(position_front, position_rear), buffer_cr, bufsize_cr, write_pos_cr);
+    write_pos_cr = (write_pos_cr + 1) % bufsize_cr;
+    cr = bass_boost_enhanced(cr, slider63, 2);
+    cr = spatial_enhance_advanced(cr, 0.6, 0, 1);
+    cr = soft_clip_enhanced(cr);
+
+    // Тыл левый
+    rl = inL;
+    rl *= db2gain(slider4);
+    rl = slider18 ? improved_lpf(rl, slider25, lp_prev_rl) : rl;
+    rl = phase_shift_enhanced(rl, slider32, 1, 1);
+    rl = delay_signal_enhanced(rl, (slider39 + 10) * delay_calibration * position_rear, buffer_rl, bufsize_rl, write_pos_rl);
+    write_pos_rl = (write_pos_rl + 1) % bufsize_rl;
+    rl = bass_boost_enhanced(rl, slider11, 1);
+    rl = spatial_enhance_advanced(rl, 1.0, 1, 0);
+    rl = soft_clip_enhanced(rl);
+
+    // Тыл правый
+    rr = inR;
+    rr *= db2gain(slider5);
+    rr = slider19 ? improved_lpf(rr, slider26, lp_prev_rr) : rr;
+    rr = phase_shift_enhanced(rr, slider33, 1, 1);
+    rr = delay_signal_enhanced(rr, (slider40 + 10) * delay_calibration * position_rear, buffer_rr, bufsize_rr, write_pos_rr);
+    write_pos_rr = (write_pos_rr + 1) % bufsize_rr;
+    rr = bass_boost_enhanced(rr, slider12, 1);
+    rr = spatial_enhance_advanced(rr, 1.0, 1, 0);
+    rr = soft_clip_enhanced(rr);
+
+    // Тыл центр
+    rc = (inL + inR) * 0.5;
+    rc *= db2gain(slider6);
+    rc = slider20 ? improved_lpf(rc, slider27, lp_prev_rc) : rc;
+    rc = phase_shift_enhanced(rc, slider34, 1, 1);
+    rc = delay_signal_enhanced(rc, (slider41 + 15) * delay_calibration * position_rear, buffer_rc, bufsize_rc, write_pos_rc);
+    write_pos_rc = (write_pos_rc + 1) % bufsize_rc;
+    rc = bass_boost_enhanced(rc, slider13, 1);
+    rc = spatial_enhance_advanced(rc, 0.7, 1, 1);
+    rc = soft_clip_enhanced(rc);
+
+    // Сабвуфер с улучшенной обработкой для Bluetooth/AUX
+    sw = (inL + inR) * 0.5;
+    sw *= db2gain(slider7);
+    sw = slider21 ? improved_lpf(sw, slider28, lp_prev_sw) : sw;
+    sw = phase_shift_enhanced(sw, slider35, 0, 2);
+    sw = delay_signal_enhanced(sw, slider42 * delay_calibration * (1 + (1-sub_fade) * 0.5), buffer_sw, bufsize_sw, write_pos_sw);
+    write_pos_sw = (write_pos_sw + 1) % bufsize_sw;
+    sw = bass_boost_enhanced(sw, slider14, 2);
+    sw = soft_clip_enhanced(sw);
+
+    
+
+    // HRTF матричное микширование с оптимизированными коэффициентами
+    outL = (
+    fl * hrtf_fl_l * space_matrix_l +
+    fr * hrtf_fr_l +
+    c  * hrtf_c_l +
+    cl * hrtf_cl_l +
+    cr * hrtf_cr_l +
+    rl * hrtf_rl_l * space_matrix_l +
+    rr * hrtf_rr_l +
+    rc * hrtf_rc_l +
+    sw * hrtf_sw_l
+) * 0.55; // Оптимизировано для 4-канальной системы
+
+outR = (
+    fl * hrtf_fl_r +
+    fr * hrtf_fr_r * space_matrix_r +
+    c  * hrtf_c_r +
+    cl * hrtf_cl_r +
+    cr * hrtf_cr_r +
+    rl * hrtf_rl_r +
+    rr * hrtf_rr_r * space_matrix_r +
+    rc * hrtf_rc_r +
+    sw * hrtf_sw_r
+) * 0.55;
+);
+
+// Применение room size эффекта
+process_room_size(outL, outR);
+outL = output_left;
+outR = output_right;
+
+// Применение улучшенной компрессии с динамической адаптацией
+ratio = slider43;
+ratio > 1 ? (
+    dynamics_tracking = dynamics_tracking * 0.95 + (abs(outL) + abs(outR)) * 0.025;
+    comp_threshold = 0.6 + dynamics_tracking * 0.2; // Увеличено с 0.5
+outL = dynamic_processor(outL, comp_threshold, ratio);
+outR = dynamic_processor(outR, comp_threshold, ratio);
+);
+
+// Улучшенная компенсация для мобильных устройств
+mobile_comp = slider55;
+mobile_comp * (
+    outL = outL * (1 + 0.12 * (1 - abs(outL))) + outL * 0.04;
+    outR = outR * (1 + 0.12 * (1 - abs(outR))) + outR * 0.04;
+    outL = outL - outL * 0.08 * (abs(outL) > 0.8);
+    outR = outR - outR * 0.08 * (abs(outR) > 0.8);
+    outL = outL * 0.92 + outL * 0.08 * sign(outL);
+    outR = outR * 0.92 + outR * 0.08 * sign(outR);
+);
+
+// Применение мультибенд компрессии
+outL = multiband_compressor(outL);
+outR = multiband_compressor(outR);
+
+// Улучшенное адаптивное сглаживание для мобильных устройств
+smooth_coef = calculate_smooth_coef(outL, outR, prev_outL, prev_outR);
+smooth_coef = max(0.85, min(0.95, smooth_coef * 0.92));
+outL = outL * smooth_coef + prev_outL * (1 - smooth_coef);
+outR = outR * smooth_coef + prev_outR * (1 - smooth_coef);
+// Динамическая адаптация
+dynamics_factor = 0.92 + music_type * 0.04;
+outL *= dynamics_factor;
+outR *= dynamics_factor;
+
+prev_outL = outL;
+prev_outR = outR;
+
+// Финальное ограничение с улучшенным мягким клиппингом
+outL = soft_clip_enhanced(min(max(outL, -0.92), 0.92)); // Увеличено с 0.85
+outR = soft_clip_enhanced(min(max(outR, -0.92), 0.92));
+
+// Финальное усиление и выход
+spl0 = outL * min(1.5, 1.5 * (1 - abs(outL) * 0.3));
+spl1 = outR * min(1.5, 1.5 * (1 - abs(outR) * 0.3));
